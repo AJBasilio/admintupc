@@ -1,15 +1,17 @@
 import json
 from channels.consumer import AsyncConsumer
+from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
+from channels.generic.websocket import WebsocketConsumer
 
 from .models import Thread, ChatMessage
 
 User = get_user_model()
 
 
-class ChatConsumer(AsyncConsumer):
-    async def websocket_connect(self, event):
+class ChatConsumer(WebsocketConsumer):
+    async def websocket_connect(self):
         user = self.scope['user']
         chat_room = f'user_chatroom_{user.id}'
         self.chat_room = chat_room
