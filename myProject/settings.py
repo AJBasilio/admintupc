@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=14p@v2kvwzwt5ar(v(f!6dm1f+vcw7o6x$j3)zgq+_dmtb4cs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['tupc-admission.herokuapp.com', '127.0.0.1']
 
@@ -171,4 +171,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = "pxfxjtafidcugcqe"
 
-CSRF_TRUSTED_ORIGINS=['https://tupc-admission.herokuapp.com/']
+CSRF_TRUSTED_ORIGINS=['https://tupc-admission.herokuapp.com']
