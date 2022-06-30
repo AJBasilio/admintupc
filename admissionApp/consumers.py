@@ -1,6 +1,5 @@
-from _typeshed import WriteableBuffer
 import json
-from channels.consumer import AsyncConsumer
+# from channels.consumer import AsyncConsumer
 from channels.db import database_sync_to_async
 from django.contrib.auth import get_user_model
 from channels.generic.websocket import WebsocketConsumer
