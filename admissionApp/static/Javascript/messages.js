@@ -4,11 +4,9 @@ let send_message_form = $('#send-message-form')
 const USER_ID = $('#logged-in-user').val()
 
 let loc = window.location
-let wsStart = 'ws://'
+let wsStart = 'wss://'
 
-if(loc.protocol === 'https') {
-    wsStart = 'wss://'
-}
+
 let endpoint = wsStart + loc.host + loc.pathname
 
 var socket = new WebSocket(endpoint)
