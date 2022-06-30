@@ -9,19 +9,19 @@ User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
-    async def websocket_connect(self, event):
+    def websocket_connect(self, event):
         user = self.scope['user']
         chat_room = f'user_chatroom_{user.id}'
         self.chat_room = chat_room
-        await self.channel_layer.group_add(
+        self.channel_layer.group_add(
             chat_room,
             self.channel_name
         )
-        await self.send({
+        self.send({
             'type': 'websocket.accept'
         })
 
-    async def websocket_receive(self, event):
+    def websocket_receive(self, event):
         received_data = json.loads(event['text'])
         msg = received_data.get('message')
         sent_by_id = received_data.get('sent_by')
@@ -31,9 +31,9 @@ class ChatConsumer(WebsocketConsumer):
         if not msg:
             return False
 
-        sent_by_user = await self.get_user_object(sent_by_id)
-        send_to_user = await self.get_user_object(send_to_id)
-        thread_obj = await self.get_thread(thread_id)
+        sent_by_user = self.get_user_object(sent_by_id)
+        send_to_user = self.get_user_object(send_to_id)
+        thread_obj = self.get_thread(thread_id)
         if not sent_by_user:
             print('Error:: sent by user is incorrect')
         if not send_to_user:
@@ -41,7 +41,7 @@ class ChatConsumer(WebsocketConsumer):
         if not thread_obj:
             print('Error:: Thread id is incorrect')
 
-        await self.create_chat_message(thread_obj, sent_by_user, msg)
+        self.create_chat_message(thread_obj, sent_by_user, msg)
 
         other_user_chat_room = f'user_chatroom_{send_to_id}'
         self_user = self.scope['user']
@@ -51,7 +51,7 @@ class ChatConsumer(WebsocketConsumer):
             'thread_id': thread_id
         }
 
-        await self.channel_layer.group_send(
+        self.channel_layer.group_send(
             other_user_chat_room,
             {
                 'type': 'chat_message',
@@ -59,7 +59,7 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
-        await self.channel_layer.group_send(
+        self.channel_layer.group_send(
             self.chat_room,
             {
                 'type': 'chat_message',
@@ -67,11 +67,11 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
-    async def websocket_disconnect(self, event):
+    def websocket_disconnect(self, event):
         print('disconnect', event)
 
-    async def chat_message(self, event):
-        await self.send({
+    def chat_message(self, event):
+        self.send({
             'type': 'websocket.send',
             'text': event['text']
         })
