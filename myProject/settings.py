@@ -160,7 +160,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("tupc-admission.herokuapp.com", 6379), ("127.0.0.1", 6379), os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            "hosts": [os.environ.get('REDIS_URL', 'redis://tupc-admission.herokuapp.com:6379')],
         },
     },
 }
