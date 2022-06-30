@@ -170,3 +170,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = "pxfxjtafidcugcqe"
+
+CSRF_TRUSTED_ORIGINS=['https://tupc-admission.herokuapp.com/']
