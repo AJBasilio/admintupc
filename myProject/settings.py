@@ -94,7 +94,7 @@ ASGI_APPLICATION = 'myProject.asgi.application'
 DATABASES = {
   'default': {
   'ENGINE': 'django.db.backends.mysql',
-  'NAME': 'admission_db',
+  'NAME': 'heroku_9a67aa552b22e4b',
   'USER': 'b83e44a316b416',
   'PASSWORD': "09466c8e",
   'HOST': "us-cdbr-east-06.cleardb.net",
