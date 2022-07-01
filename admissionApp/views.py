@@ -289,18 +289,18 @@ def applicant_perspective_pdf(request):
             buffer.seek(0)
 
             new_pdf = PdfFileReader(buffer)
-            existing_pdf = PdfFileReader(open('/admissionApp/static/Media/slip.pdf', "rb"))
+            existing_pdf = PdfFileReader(open('admissionApp/static/Media/slip.pdf', "rb"))
 
             page = existing_pdf.getPage(0)
             page.mergePage(new_pdf.getPage(0))
 
             output = PdfFileWriter()
             output.addPage(page)
-            output_stream = open("/admissionApp/static/Media/new_slip.pdf", "wb")
+            output_stream = open("admissionApp/static/Media/new_slip.pdf", "wb")
             output.write(output_stream)
             output_stream.close()
 
-            with open('/admissionApp/static/Media/new_slip.pdf', 'rb') as pdf:
+            with open('admissionApp/static/Media/new_slip.pdf', 'rb') as pdf:
                 response = HttpResponse(pdf.read(), content_type='application/pdf')
                 response['Content-Disposition'] = 'attachment; filename=pre-admission_checklist.pdf'
                 return response
